@@ -3,10 +3,11 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - develop  # Asegúrate de que esto coincida con la rama a la que estás haciendo push
+      - develop
   pull_request:
     branches:
       - develop
+  workflow_dispatch:  # 👈 Esto permite ejecutarlo manualmente desde GitHub
 
 jobs:
   build:
@@ -15,11 +16,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
       - name: Install dependencies
         run: npm install
+
       - name: Run tests
         run: npm test
